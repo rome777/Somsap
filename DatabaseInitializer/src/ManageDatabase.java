@@ -58,7 +58,9 @@ public class ManageDatabase {
 		try {
 			connect();
 			stmt = con.createStatement();
-			returnValue = stmt.executeUpdate(query) == 0;   //Create Drop은 0이면 성공, 실패하면 예외
+			returnValue = stmt.executeUpdate(query) ==
+				(query.toUpperCase().startsWith("CREATE") || query.toUpperCase().startsWith("DROP") ? 0 : 1);
+			//Create Drop은 0이면 성공, 실패하면 예외
 			return returnValue;
 		} catch (SQLException e) {
 			System.out.print(e.getMessage());
@@ -105,9 +107,9 @@ public class ManageDatabase {
 						"Type VARCHAR2(16) PRIMARY KEY," +
 						"Name VARCHAR2(16) NOT NULL," +
 						"Is_Using NUMBER(1) DEFAULT 1 NOT NULL," +
-						"Created_Datetime TIMESTAMP NOT NULL," +
+						"Created_Datetime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL," +
 						"Created_User_Email VARCHAR2(128) NOT NULL," +
-						"Modified_Datetime TIMESTAMP NOT NULL," +
+						"Modified_Datetime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL," +
 						"Modified_User_Email VARCHAR2(128) NOT NULL" +
 					")";
 			stmt = con.createStatement();
@@ -133,9 +135,9 @@ public class ManageDatabase {
 					"Nick_Name VARCHAR2(16) NOT NULL," +
 					"Password VARCHAR2(16) NOT NULL," +
 					"Is_Using NUMBER(1) DEFAULT 1 NOT NULL," +
-					"Created_Datetime TIMESTAMP NOT NULL," +
+					"Created_Datetime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL," +
 					"Created_User_Email VARCHAR2(128) NOT NULL," +
-					"Modified_Datetime TIMESTAMP NOT NULL," +
+					"Modified_Datetime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL," +
 					"Modified_User_Email VARCHAR2(128) NOT NULL," +
 					"CONSTRAINT FK_Users_UserTypes FOREIGN KEY(Type) " +
 					"REFERENCES User_Types(Type)" +
@@ -160,6 +162,10 @@ public class ManageDatabase {
 					"CREATE TABLE Sessions(" +
 						"Email VARCHAR2(128) PRIMARY KEY," +
 						"Session_Id VARCHAR2(128)," +
+						"Created_Datetime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL," +
+						"Created_User_Email VARCHAR2(128) NOT NULL," +
+						"Modified_Datetime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL," +
+						"Modified_User_Email VARCHAR2(128) NOT NULL," +
 						"CONSTRAINT FK_Session_Users FOREIGN KEY(Email)" +
 						"REFERENCES Users(Email)" +
 					")";
@@ -182,7 +188,7 @@ public class ManageDatabase {
 			String query =
 					"CREATE TABLE Records(" +
 						"Seq NUMBER PRIMARY KEY," +
-						"Created_Datetime TIMESTAMP," +
+						"Created_Datetime TIMESTAMP DEFAULT SYSTIMESTAMP," +
 						"Created_User_Email VARCHAR2(128)," +
 						"Location VARCHAR2(128)," +
 						"Before_Data VARCHAR2(1024)," +
@@ -210,7 +216,11 @@ public class ManageDatabase {
 					"CREATE TABLE Board_Codes(" +
 							"Code VARCHAR2(16) PRIMARY KEY," +
 							"Name VARCHAR2(16) NOT NULL," +
-							"Is_Showing NUMBER(1) DEFAULT 1 NOT NULL" +
+							"Is_Showing NUMBER(1) DEFAULT 1 NOT NULL," +
+							"Created_Datetime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL," +
+							"Created_User_Email VARCHAR2(128) NOT NULL," +
+							"Modified_Datetime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL," +
+							"Modified_User_Email VARCHAR2(128) NOT NULL" +
 							")";
 			stmt = con.createStatement();
 			returnValue = stmt.executeUpdate(query) == 0;   //Create Drop은 0이면 성공, 실패하면 예외
@@ -241,6 +251,10 @@ public class ManageDatabase {
 							"Likes NUMBER DEFAULT 0 NOT NULL," +
 							"Hates NUMBER DEFAULT 0 NOT NULL," +
 							"Is_Showing NUMBER(1) DEFAULT 1 NOT NULL," +
+							"Created_Datetime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL," +
+							"Created_User_Email VARCHAR2(128) NOT NULL," +
+							"Modified_Datetime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL," +
+							"Modified_User_Email VARCHAR2(128) NOT NULL," +
 							"CONSTRAINT PK_BoardPosts PRIMARY KEY (Board_Code, Seq)," +
 							"CONSTRAINT FK_BoardPosts_BoardCodes FOREIGN KEY (Board_Code)" +
 							"REFERENCES Board_Codes(Code)" +
@@ -271,6 +285,10 @@ public class ManageDatabase {
 							"Likes NUMBER DEFAULT 0 NOT NULL," +
 							"Hates NUMBER DEFAULT 0 NOT NULL," +
 							"Is_Showing NUMBER DEFAULT 1 NOT NULL," +
+							"Created_Datetime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL," +
+							"Created_User_Email VARCHAR2(128) NOT NULL," +
+							"Modified_Datetime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL," +
+							"Modified_User_Email VARCHAR2(128) NOT NULL," +
 							"CONSTRAINT PK_Comments PRIMARY KEY (Board_Code, Post_Seq, Seq)" +
 							")";
 			stmt = con.createStatement();
@@ -283,4 +301,5 @@ public class ManageDatabase {
 		}
 		return returnValue;
 	}
+	
 }

@@ -22,7 +22,7 @@ public class Main {
 					"START WITH 1 " +
 					"INCREMENT BY 1 "
 		));
-		System.out.println("CREATE SEQUENCE Records_Seq: " + md.excuteStatement(
+		System.out.println("CREATE OR REPLACE TRIGGER Records_Seq_trigger: " + md.excuteStatement(
 			"CREATE OR REPLACE TRIGGER Records_Seq_trigger " +
 					"BEFORE INSERT ON Records REFERENCING NEW AS NEW " +
 					"FOR EACH ROW " +
@@ -33,5 +33,14 @@ public class Main {
 		System.out.println("CREATE TABLE BoardCodes: " + md.createBoardCodesTable());
 		System.out.println("CREATE TABLE BoardPosts: " + md.createBoardPostsTable());
 		System.out.println("CREATE TABLE Comments: " + md.createCommentsTable());
+		
+		//UserType Insert
+		System.out.println(
+				"INSERT INTO User_Types (Type, Name, Is_Using, Created_Datetime, " +
+						"Created_User_Email, Modified_Datetime, Modified_User_Email) " +
+						"VALUES ('admin', '관리자', 1, SYSTIMESTAMP, 'somsap', SYSTIMESTAMP, 'somsap'): " +
+			md.excuteStatement("INSERT INTO User_Types (Type, Name, Is_Using, Created_Datetime, " +
+					"Created_User_Email, Modified_Datetime, Modified_User_Email) " +
+					"VALUES ('admin', '관리자', 1, SYSTIMESTAMP, 'somsap', SYSTIMESTAMP, 'somsap')"));
 	}
 }
