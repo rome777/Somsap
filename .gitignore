@@ -104,3 +104,4 @@ fabric.properties
 .idea/
 /DatabaseInitializer/out/
 *.iml
+/web-page/node_modules/
