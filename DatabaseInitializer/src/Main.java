@@ -33,7 +33,7 @@ public class Main {
 		System.out.println("CREATE TABLE BoardCodes: " + md.createBoardCodesTable());
 		System.out.println("CREATE TABLE BoardPosts: " + md.createBoardPostsTable());
 		System.out.println("CREATE TABLE Comments: " + md.createCommentsTable());
-		
+		System.out.println();
 		//UserType Insert
 		System.out.println(
 				"INSERT INTO User_Types (Type, Name, Is_Using, Created_Datetime, " +
@@ -42,5 +42,12 @@ public class Main {
 			md.excuteStatement("INSERT INTO User_Types (Type, Name, Is_Using, Created_Datetime, " +
 					"Created_User_Email, Modified_Datetime, Modified_User_Email) " +
 					"VALUES ('admin', '관리자', 1, SYSTIMESTAMP, 'somsap', SYSTIMESTAMP, 'somsap')"));
+		
+		//User Insert
+		System.out.println(
+			"INSERT INTO Users (Email, Type, Password, Created_User_Email, Modified_User_Email) " +
+					"VALUES ('rome777@gmail.com', '솜삽', 1234, 'rome777@gmail.com', 'rome777@gmail.com'): " +
+			md.excuteStatement("INSERT INTO Users (Email, Nick_Name, Password, Created_User_Email, Modified_User_Email) " +
+					"VALUES ('rome777@gmail.com', '솜삽', 1234, 'rome777@gmail.com', 'rome777@gmail.com')"));
 	}
 }

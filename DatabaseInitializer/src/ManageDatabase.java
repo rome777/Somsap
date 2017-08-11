@@ -33,7 +33,8 @@ public class ManageDatabase {
 	
 	private void connect() {
 		try {
-			String dbUrl = "jdbc:oracle:thin:@211.183.2.253:1521:orcl";
+//			String dbUrl = "jdbc:oracle:thin:@211.183.2.253:1521:orcl"; //외부 접근 //8월 11일 현재 안됨.
+			String dbUrl = "jdbc:oracle:thin:@192.168.0.108:1521:xe";   //내부 접근
 			con = DriverManager.getConnection(dbUrl, "user01", "user01");
 		} catch (Exception e) {
 			System.out.print(e.getMessage());
