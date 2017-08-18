@@ -1,12 +1,12 @@
-package somsap.webservice;
+package somsap.webapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
-public class Application {
+public class WebApiApplication {
+
 	public static void main(String[] args) {
-		ApplicationContext ctx = SpringApplication.run(Application.class, args);
+		SpringApplication.run(WebApiApplication.class, args);
 	}
 }
