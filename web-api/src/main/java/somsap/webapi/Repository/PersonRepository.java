@@ -1,4 +1,4 @@
-package somsap.webapi.Repositories;
+package somsap.webapi.Repository;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;

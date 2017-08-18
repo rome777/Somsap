@@ -35,16 +35,16 @@ public class Reply implements Serializable {
 	@Column(columnDefinition = "NUMBER DEFAULT 0 NOT NULL")
 	private int hates;
 	
-	@Column(columnDefinition = "NUMBER(1) DEFAULT 1 NOT NULL")
+	@Column(columnDefinition = "NUMBER(1) DEFAULT 1 NOT NULL", insertable = false)
 	private Boolean isShowing;
 	
-	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL")
+	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL", insertable = false)
 	private Calendar createdDatetime;
 	
 	@Column(columnDefinition = "VARCHAR2(128)")
 	private String createdMemberEmail;
 	
-	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL")
+	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL", insertable = false)
 	private Calendar modifiedDatetime;
 	
 	@Column(columnDefinition = "VARCHAR2(128)")
@@ -159,5 +159,23 @@ public class Reply implements Serializable {
 	public Reply setChildComments(List<Reply> childComments) {
 		this.childComments = childComments;
 		return this;
+	}
+	
+	@Override
+	public String toString() {
+		return "Reply{" +
+				"parentBoardPost=" + parentBoardPost +
+				", seq=" + seq +
+				", parentComment=" + parentComment +
+				", content='" + content + '\'' +
+				", likes=" + likes +
+				", hates=" + hates +
+				", isShowing=" + isShowing +
+				", createdDatetime=" + createdDatetime +
+				", createdMemberEmail='" + createdMemberEmail + '\'' +
+				", modifiedDatetime=" + modifiedDatetime +
+				", modifiedMemberEmail='" + modifiedMemberEmail + '\'' +
+				", childComments=" + childComments +
+				'}';
 	}
 }

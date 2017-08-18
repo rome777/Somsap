@@ -15,17 +15,36 @@ public class MemberType {
 	@Column(columnDefinition = "VARCHAR2(16) NOT NULL"/*, length = 16, nullable = false*/)
 	private String name;
 	
-	@Column(columnDefinition = "NUMBER(1) DEFAULT 1 NOT NULL"/*, nullable = false*/)
+	@Column(columnDefinition = "NUMBER(1) DEFAULT 1 NOT NULL", insertable = false)
 	private Boolean isUsing;
 	
-	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL")
+	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL", insertable = false)
 	private Calendar createdDatetime;
 	
 	@Column(columnDefinition = "VARCHAR2(128)"/*, length = 128*/)
 	private String createdMemberEmail;
 	
-	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL")
+	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL", insertable = false)
 	private Calendar modifiedDatetime;
+	
+	public MemberType() {
+	}
+	
+	public MemberType(String type, String name) {
+		this.type = type;
+		this.name = name;
+	}
+	
+	public MemberType(String type, String name, Boolean isUsing, Calendar createdDatetime, String createdMemberEmail, Calendar modifiedDatetime, String modifiedMemberEmail, List<Member> members) {
+		this.type = type;
+		this.name = name;
+		this.isUsing = isUsing;
+		this.createdDatetime = createdDatetime;
+		this.createdMemberEmail = createdMemberEmail;
+		this.modifiedDatetime = modifiedDatetime;
+		this.modifiedMemberEmail = modifiedMemberEmail;
+		this.members = members;
+	}
 	
 	public String getType() {
 		return type;
@@ -104,4 +123,18 @@ public class MemberType {
 	
 	@OneToMany(mappedBy = "type"/*fetch=FetchType.EAGER, cascade = CascadeType.ALL*/)
 	private List<Member> members;
+	
+	@Override
+	public String toString() {
+		return "MemberType{" +
+				"type='" + type + '\'' +
+				", name='" + name + '\'' +
+				", isUsing=" + isUsing +
+				", createdDatetime=" + createdDatetime +
+				", createdMemberEmail='" + createdMemberEmail + '\'' +
+				", modifiedDatetime=" + modifiedDatetime +
+				", modifiedMemberEmail='" + modifiedMemberEmail + '\'' +
+				", members=" + members +
+				'}';
+	}
 }

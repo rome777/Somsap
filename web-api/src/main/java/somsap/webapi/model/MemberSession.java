@@ -11,14 +11,24 @@ public class MemberSession implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="memberEmail", foreignKey = @ForeignKey(name="FK_MEMBERSESSION_MEMBER"))
 	private Member member;
+	
 	@Column(columnDefinition = "VARCHAR2(128)")
 	private String memberEmail;
 	
 	@Column(columnDefinition = "VARCHAR2(128)")
 	private String sessionId;
 	
-	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL")
+	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL", insertable = false)
 	private Calendar createdDatetime;
+	
+	@Column(columnDefinition = "VARCHAR2(128)")
+	private String createdMemberEmail;
+	
+	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL", insertable = false)
+	private Calendar modifiedDatetime;
+	
+	@Column(columnDefinition = "VARCHAR2(128)")
+	private String modifiedMemberEmail;
 	
 	public Member getMember() {
 		return member;
@@ -83,12 +93,16 @@ public class MemberSession implements Serializable {
 		return this;
 	}
 	
-	@Column(columnDefinition = "VARCHAR2(128)")
-	private String createdMemberEmail;
-	
-	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL")
-	private Calendar modifiedDatetime;
-	
-	@Column(columnDefinition = "VARCHAR2(128)")
-	private String modifiedMemberEmail;
+	@Override
+	public String toString() {
+		return "MemberSession{" +
+				"member=" + member +
+				", memberEmail='" + memberEmail + '\'' +
+				", sessionId='" + sessionId + '\'' +
+				", createdDatetime=" + createdDatetime +
+				", createdMemberEmail='" + createdMemberEmail + '\'' +
+				", modifiedDatetime=" + modifiedDatetime +
+				", modifiedMemberEmail='" + modifiedMemberEmail + '\'' +
+				'}';
+	}
 }

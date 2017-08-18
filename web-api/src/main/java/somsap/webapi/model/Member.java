@@ -23,14 +23,24 @@ public class Member {
 	@Column(columnDefinition = "VARCHAR2(16) NOT NULL")
 	private String password;
 	
-	@Column(columnDefinition = "NUMBER(1) DEFAULT 1 NOT NULL")
+	@Column(columnDefinition = "NUMBER(1) DEFAULT 1 NOT NULL", insertable = false)
 	private Boolean isUsing;
 	
-	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL")
+	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL", insertable = false)
 	private Calendar createdDatetime;
 	
 	@Column(columnDefinition = "VARCHAR2(128)")
 	private String createdMemberEmail;
+	
+	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL", insertable = false)
+	private Calendar modifiedDatetime;
+	
+	@Column(columnDefinition = "VARCHAR2(128)")
+	private String modifiedMemberEmail;
+	
+	@OneToMany(mappedBy = "member")
+	private List<MemberSession> sessions;
+	
 	
 	public String getEmail() {
 		return email;
@@ -122,12 +132,19 @@ public class Member {
 		return this;
 	}
 	
-	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL")
-	private Calendar modifiedDatetime;
-	
-	@Column(columnDefinition = "VARCHAR2(128)")
-	private String modifiedMemberEmail;
-	
-	@OneToMany(mappedBy = "member")
-	private List<MemberSession> sessions;
+	@Override
+	public String toString() {
+		return "Member{" +
+				"email='" + email + '\'' +
+				", type=" + type +
+				", nickName='" + nickName + '\'' +
+				", password='" + password + '\'' +
+				", isUsing=" + isUsing +
+				", createdDatetime=" + createdDatetime +
+				", createdMemberEmail='" + createdMemberEmail + '\'' +
+				", modifiedDatetime=" + modifiedDatetime +
+				", modifiedMemberEmail='" + modifiedMemberEmail + '\'' +
+				", sessions=" + sessions +
+				'}';
+	}
 }

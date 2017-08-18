@@ -35,25 +35,25 @@ public class BoardPost implements Serializable {
 	@Column(columnDefinition = "VARCHAR2(256)")
 	private String attachmentLocation;
 	
-	@Column(columnDefinition = "NUMBER DEFAULT 0 NOT NULL")
+	@Column(columnDefinition = "NUMBER DEFAULT 0 NOT NULL", insertable = false)
 	private int hits;
 	
-	@Column(columnDefinition = "NUMBER DEFAULT 0 NOT NULL")
+	@Column(columnDefinition = "NUMBER DEFAULT 0 NOT NULL", insertable = false)
 	private int likes;
 	
-	@Column(columnDefinition = "NUMBER DEFAULT 0 NOT NULL")
+	@Column(columnDefinition = "NUMBER DEFAULT 0 NOT NULL", insertable = false)
 	private int hates;
 	
-	@Column(columnDefinition = "NUMBER(1) DEFAULT 1 NOT NULL")
+	@Column(columnDefinition = "NUMBER(1) DEFAULT 1 NOT NULL", insertable = false)
 	private Boolean isShowing;
 	
-	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL")
+	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL", insertable = false)
 	private Calendar createdDatetime;
 	
 	@Column(columnDefinition = "VARCHAR2(128)")
 	private String createdMemberEmail;
 	
-	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL")
+	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL", insertable = false)
 	private Calendar modifiedDatetime;
 	
 	@Column(columnDefinition = "VARCHAR2(128)")
@@ -205,4 +205,26 @@ public class BoardPost implements Serializable {
 	
 	@OneToMany(mappedBy = "parentBoardPost")
 	private List<BoardPost> childPosts;
+	
+	@Override
+	public String toString() {
+		return "BoardPost{" +
+				"boardCode=" + boardCode +
+				", seq=" + seq +
+				", parentBoardPost=" + parentBoardPost +
+				", type='" + type + '\'' +
+				", title='" + title + '\'' +
+				", content='" + content + '\'' +
+				", attachmentLocation='" + attachmentLocation + '\'' +
+				", hits=" + hits +
+				", likes=" + likes +
+				", hates=" + hates +
+				", isShowing=" + isShowing +
+				", createdDatetime=" + createdDatetime +
+				", createdMemberEmail='" + createdMemberEmail + '\'' +
+				", modifiedDatetime=" + modifiedDatetime +
+				", modifiedMemberEmail='" + modifiedMemberEmail + '\'' +
+				", childPosts=" + childPosts +
+				'}';
+	}
 }

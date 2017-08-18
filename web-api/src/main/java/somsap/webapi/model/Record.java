@@ -12,7 +12,7 @@ public class Record implements Serializable {
 	private long seq;
 	
 	@Id
-	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP")
+	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP", insertable = false)
 	private Calendar createdDatetime;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -80,5 +80,17 @@ public class Record implements Serializable {
 	public Record setAfterData(String afterData) {
 		this.afterData = afterData;
 		return this;
+	}
+	
+	@Override
+	public String toString() {
+		return "Record{" +
+				"seq=" + seq +
+				", createdDatetime=" + createdDatetime +
+				", member=" + member +
+				", location='" + location + '\'' +
+				", beforeData='" + beforeData + '\'' +
+				", afterData='" + afterData + '\'' +
+				'}';
 	}
 }

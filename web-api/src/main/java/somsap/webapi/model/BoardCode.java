@@ -88,21 +88,35 @@ public class BoardCode {
 		return this;
 	}
 	
-	@Column(columnDefinition = "NUMBER(1) DEFAULT 1 NOT NULL")
+	@Column(columnDefinition = "NUMBER(1) DEFAULT 1 NOT NULL", insertable = false)
 	private Boolean isUsing;
 	
-	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL")
+	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL", insertable = false)
 	private Calendar createdDatetime;
 	
 	@Column(columnDefinition = "VARCHAR2(128)"/*, length = 128*/)
 	private String createdMemberEmail;
 	
-	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL")
+	@Column(columnDefinition = "TIMESTAMP(3) DEFAULT SYSTIMESTAMP NOT NULL", insertable = false)
 	private Calendar modifiedDatetime;
 	
-	@Column(columnDefinition = "VARCHAR2(128)"/*, length = 128*/)
+	@Column(columnDefinition = "VARCHAR2(128)")
 	private String modifiedMemberEmail;
 	
 	@OneToMany(mappedBy = "boardCode")
 	private List<BoardPost> posts;
+	
+	@Override
+	public String toString() {
+		return "BoardCode{" +
+				"code='" + code + '\'' +
+				", name='" + name + '\'' +
+				", isUsing=" + isUsing +
+				", createdDatetime=" + createdDatetime +
+				", createdMemberEmail='" + createdMemberEmail + '\'' +
+				", modifiedDatetime=" + modifiedDatetime +
+				", modifiedMemberEmail='" + modifiedMemberEmail + '\'' +
+				", posts=" + posts +
+				'}';
+	}
 }
